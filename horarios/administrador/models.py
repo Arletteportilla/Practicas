@@ -27,21 +27,34 @@ class Coordinador(Persona):
 class Facultad(models.Model):
     nombreFacultad = models.CharField(verbose_name = "nombreFacultad", max_length=100)
     descripcion = models.CharField(verbose_name ="descripcion", max_length=50)
-    fechaCreacion = models.DateField(verbose_name ="fechaCreacion", auto_now=True, auto_now_add=True)
+    #fechaCreacion = models.DateField(verbose_name ="fechaCreacion", auto_now=True, auto_now_add=True)
 
 class Carrera(models.Model): 
     nombreCarrera = models.CharField(verbose_name ="nombreCarrera", max_length=50)
     duracionCarrera = models.IntegerField(verbose_name ="duracionCarrera")
     codigoCarrera =  models.CharField(verbose_name ="codigoCarrera", max_length=50)
     tipoAsignatura = models.CharField(verbose_name ="tipoAsignatura", max_length=50)
+    Facultad = models.ForeignKey(Facultad,on_delete=models.CASCADE,null=True,blank=True)#muchos a 1 cascade borrar todo en cascada
+    Malla = models.ManyToManyField(Malla,related_name= "malla_materia", null=True, blank=True)#1a muchos
+    Coordinador = models.OneToOneField(Coordinador,on_delete=models.RESTRICT, null=True,blank=True )#restringe el borrado
+
+class Materia(models.Model):
+    duracionClase = models.IntegerField(verbose_name ="duracionClase")
+    numeroEstudiante = models.IntegerField(verbose_name ="numeroEstudiante")
+    horasClase = models.IntegerField(verbose_name = "numeroEstudiantes")
+    nombreMateria = models.CharField(verbose_name = "nombreMateria", max_length=50)
+    materiaAprobada = models.BooleanField(verbose_name = "materiaAprobada")
+    Aulas = models.ManyToManyField(Aulas,related_name= "malla_materia", null=True, blank=True)#1a muchos
+
 
 class Malla(models.Model):
     choices_anioMalla = [('2019','2019'),('2020','2020'),('2021','2021'),('2022','2023')]
     nombreMalla = models.CharField(verbose_name ="nombreMalla", max_length=50)
     anioMalla = models.CharField(verbose_name ="anioMalla", max_length=50,choices= choices_anioMalla)
+    Materia = models.ManyToManyField(Materia,related_name= "malla_materia", null=True, blank=True) #relacion muchos a muchos 
 
 class Ciclo(models.Model):
-    numeroCiclo = models.IntegerField(verbose_name"numeroCiclo")
+    numeroCiclo = models.IntegerField(verbose_name ="numeroCiclo")
     nombreCiclo = models.CharField(verbose_name = "nombreCiclo", max_length=50)
     fechaInicio = models.DateField(verbose_name = "fechaInicio")
     fechaFin = models.DateField(verbose_name = "fechaFin")
@@ -49,12 +62,15 @@ class Ciclo(models.Model):
 class  Ofertador(models.Model):
     fechaOfertada = models.DateField(verbose_name = "fechaOfertada")
 
-class materia(models.Model):
-    duracionClase = models.IntegerField(verbose_name ="duracionClase")
-    numeroEstudiante = models.IntegerField(verbose_name ="numeroEstudiante")
-    horasClase = models.IntegerField(verbose_name = "numeroEstudiantes")
-    nombreMateria = models.CharField(verbose_name = "nombreMateria", max_length=50)
-    materiaAprobada = models.BooleanField(verbose_name = "materiaAprobada")
+class PeriodoAcademico(models.Model):
+    fechaInicio = models.DateField(verbose_name="fechaInicio")
+    fechaFin = models.DateField(verbose_name="fechaFin")
+    nombrePeriodoAcademico = models.CharField(verbose_name="nombrePeriodoAcademico", max_length=50)
+
+class Paralelo(models.Model): 
+    numeroParalelo = models.IntegerField(verbose_name ="numeroParalelo")
+    numeroEstudiantes =models.IntegerField(verbose_name ="numeroEstudiantes")
+    nombreParalelo = models.CharField(verbose_name ="nombreParalelo", max_length=50)
 
 class Aulas(models.Model):
     nombreAula = models.CharField(verbose_name ="nombreAula", max_length=50)
@@ -62,12 +78,14 @@ class Aulas(models.Model):
     numeroAula = models.IntegerField(verbose_name ="numeroAula")
     horaInicio = models.TimeField(verbose_name ="horaInicio")
     horaFin = models.TimeField(verbose_name ="horaFin")
+    Paralelo= models.ManyToManyField(Paralelo,related_name= "malla_materia", null=True, blank=True)
+  
+class Horario(models.Model):
+    nombreHorario =models.CharField(verbose_name="nombreHorario", max_length=25)
+    diaSemana = models.DateField(verbose_name="diaSemana")
+    horaInicio = models.DateField(verbose_name="horaInicio")
+    horaFin = models.DateField(verbose_name="horaFin")
 
-class Paralelo(models.Model): 
-    numeroParalelo = models.IntegerField(verbose_name ="numeroParalelo")
-    numeroEstudiantes =models.IntegerField(verbose_name ="numeroEstudiantes")
-    nombreParalelo = models.CharField(verbose_name ="nombreParalelo", max_length=50)
- 
 
 
 
