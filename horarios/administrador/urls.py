@@ -1,0 +1,38 @@
+from django.urls import path
+from .views import DocenteViewSet, EstudianteViewSet, CoordinadorViewSet, CarreraViewSet, FacultadViewSet, CicloViewSet, OfertadorViewSet, PeriodoAcademicoViewSet, MateriaViewSet, AulasViewSet, ParaleloViewSet, HorarioViewSet, materia_estudianteViewSet, FuncionesViewSet, horasHorarioSerialaizers
+
+urlpatterns = [
+    path('api/docentes', DocenteViewSet.as_view({'get':'list'}), name="lista-docentes"),
+    path('api/docentes/<int:pk>', DocenteViewSet.as_view({'get':'retrieve','put':'update'}), name="detalle-docentes"),
+    path('api/estudiantes', EstudianteViewSet.as_view({'get':'list'}), name="lista-estudiantes"),
+    path('api/estudiantes/<int:pk>', EstudianteViewSet.as_view({'get':'retrieve','put':'update'}), name="detalle-estudiantes"),
+    path('api/coordinadores', CoordinadorViewSet.as_view({'get':'list'}), name="lista-coordinadores"),
+    path('api/coordinadores/<int:pk>', CoordinadorViewSet.as_view({'get':'retrieve','put':'update', 'delete': 'destroy'}), name="detalle-coordinadores"),
+    path('api/carreras', CarreraViewSet.as_view({'get':'list'}), name="lista-carreras"),
+    path('api/carreras/<int:pk>', CarreraViewSet.as_view({'get':'retrieve','put':'update', 'delete': 'destroy'}), name="detalle-carreras"),
+    path('api/facultades', FacultadViewSet.as_view({'get':'list'}), name="lista-facultades"),
+    path('api/facultades/<int:pk>', FacultadViewSet.as_view({'get':'retrieve','put':'update', 'delete': 'destroy'}), name="detalle-facultades"),
+    path('api/facultades', FacultadViewSet.as_view({'get':'list'}), name="lista-facultades"),
+    path('api/facultades/<int:pk>', FacultadViewSet.as_view({'get':'retrieve','put':'update', 'delete': 'destroy'}), name="detalle-facultades"),
+    path('api/ciclos', CicloViewSet.as_view({'get':'list'}), name="lista-ciclos"),
+    path('api/ciclos/<int:pk>', CicloViewSet.as_view({'get':'retrieve','put':'update', 'delete': 'destroy'}), name="detalle-ciclos"),
+    path('api/ofertadores', OfertadorViewSet.as_view({'get':'list'}), name="lista-ofertadores"),
+    path('api/ofertadores/<int:pk>', OfertadorViewSet.as_view({'get':'retrieve','put':'update'}), name="detalle-ofertadores"),
+    path('api/periodosAcademicos', PeriodoAcademicoViewSet.as_view({'get':'list'}), name="lista-periodosAcademicos"),
+    path('api/periodosAcademicos/<int:pk>', PeriodoAcademicoViewSet.as_view({'get':'retrieve','put':'update'}), name="detalle-periodosAcademicos"),
+    path('api/materias', MateriaViewSet.as_view({'get':'list'}), name="lista-materias"),
+    path('api/materias/<int:pk>', MateriaViewSet.as_view({'get':'retrieve','put':'update'}), name="detalle-materias"),
+    path('api/aulas', AulasViewSet.as_view({'get':'list'}), name="lista-aulas"),
+    path('api/aulas/<int:pk>', AulasViewSet.as_view({'get':'retrieve','put':'update'}), name="detalle-aulas"),
+    path('api/paralelos', ParaleloViewSet.as_view({'get':'list'}), name="lista-paralelos"),
+    path('api/paralelos/<int:pk>', ParaleloViewSet.as_view({'get':'retrieve','put':'update'}), name="detalle-paralelos"),
+    path('api/horarios', HorarioViewSet.as_view({'get':'list'}), name="lista-horarios"),
+    path('api/horarios/<int:pk>', HorarioViewSet.as_view({'get':'retrieve','put':'update'}), name="detalle-horarios"),
+    path('api/materia_estudiante', materia_estudianteViewSet.as_view({'get':'list'}), name="lista-materia_estudiante"),
+    path('api/materia_estudiante/<int:pk>', materia_estudianteViewSet.as_view({'get':'retrieve','put':'update'}), name="detalle-materia_estudiante"),
+    path('api/funciones', FuncionesViewSet.as_view({'get':'list'}), name="lista-funciones"),
+    path('api/funciones/<int:pk>', FuncionesViewSet.as_view({'get':'retrieve','put':'update'}), name="detalle-funciones"),
+    path('api/horas_horario', FuncionesViewSet.as_view({'get':'list'}), name="lista-horas_horario"),
+    path('api/horas_horario/<int:pk>', FuncionesViewSet.as_view({'get':'retrieve','put':'update'}), name="detalle-horas_horario"),
+]
+
